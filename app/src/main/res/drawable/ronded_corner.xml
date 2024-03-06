@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:ignore="ExtraText">
+    <corners android:radius="16dp" /> <!-- Adjust the radius as needed -->
+    <solid android:color="#FFF" /> <!-- Background color with opacity (80 in hex is 50% opacity) -->
+<!--    <stroke-->
+<!--        android:width="2dp"-->
+<!--        android:color="#FFFFFF" />-->
+    <!-- Border color -->
+    <stroke
+        android:width="2dp"
+        android:color="#FFF" />
+</shape>
