@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item
+    android:id="@+id/dnavmenu"
+    android:title="Menu"/>
+    <item
+        android:id="@+id/dnavfolders"
+        android:title="Dossier"/>
+    <item
+        android:id="@+id/dnavshare"
+        android:title="Prtager"/>
+    <item
+        android:id="@+id/dnavSymptomes"
+        android:title="Symptomes"/>
+    <item
+    android:id="@+id/dnavProfile"
+    android:title="Profile"/>
+    <item
+    android:id="@+id/dnavrendezvous"
+    android:title="Rendez vous"/>
+
+</menu>

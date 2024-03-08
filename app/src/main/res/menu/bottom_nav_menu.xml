@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navHome"
+        android:icon="@drawable/nav_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Home" />
+    <item
+        android:id="@+id/navShare"
+        android:icon="@drawable/nav_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Share" />
+    <item
+        android:id="@+id/navFolders"
+        android:icon="@drawable/nav_folders"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Folders" />
+    <item
+        android:id="@+id/navProfile"
+        android:icon="@drawable/nav_person"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Profile" />
+</menu>

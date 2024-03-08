@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     tools:ignore="ExtraText">
     <corners android:radius="16dp" /> <!-- Adjust the radius as needed -->
-    <solid android:color="#FFF" /> <!-- Background color with opacity (80 in hex is 50% opacity) -->
+    <solid android:color="#FFFFFF" /> <!-- Background color with opacity (80 in hex is 50% opacity) -->
 <!--    <stroke-->
 <!--        android:width="2dp"-->
 <!--        android:color="#FFFFFF" />-->
