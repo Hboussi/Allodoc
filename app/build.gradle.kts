@@ -4,12 +4,13 @@ plugins {
 
 android {
     namespace = "com.example.allodoc"
-    compileSdk = 33
+    compileSdk = 34
+
 
     defaultConfig {
         applicationId = "com.example.allodoc"
         minSdk = 25
-        targetSdk = 33
+        targetSdk = 31
         versionCode = 1
         versionName = "1.0"
 
