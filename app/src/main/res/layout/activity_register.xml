@@ -142,13 +142,23 @@
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="58dp" />
 
-        <EditText
-            android:id="@+id/birthday"
+
+<!--        <androidx.appcompat.widget.AppCompatButton-->
+<!--            android:id="@+id/birthday_button"-->
+<!--            android:layout_width="70dp"-->
+<!--            android:layout_height="67dp"-->
+<!--            android:background="@drawable/calendar_icon"-->
+<!--            android:contentDescription="@string/app_name"-->
+<!--            tools:ignore="InvalidId" />-->
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/birthday_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableEnd="@drawable/calendar_icon"
             android:hint="Votre date de naissance"
-            android:inputType="date"
+            android:background="@color/white"
             android:maxLines="1"
             android:minHeight="48dp"
             android:paddingStart="20dp"
@@ -157,6 +167,7 @@
             android:textColorHint="@color/r1"
             tools:ignore="MissingConstraints,DuplicateClickableBoundsCheck"
             tools:layout_editor_absoluteX="20dp" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -172,25 +183,29 @@
                 android:textColor="@color/r1"
                 android:textSize="20dp"
                 />
-            <CheckBox
-                android:id="@+id/checkboxMale"
+            <RadioGroup
+                android:id="@+id/gender_radio_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:buttonTint="@color/r1"
-                android:text="Male"
-                android:textColor="@color/r1"
-                android:textSize="16sp" />
+                android:orientation="horizontal">
 
-            <CheckBox
-                android:id="@+id/checkboxFemale"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:buttonTint="@color/r1"
-                android:text="Female"
-                android:textColor="@color/r1"
-                android:textSize="16sp" />
+                <RadioButton
+                    android:id="@+id/radio_male"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="M"
+                    android:textColor="@color/r1"
+                    android:textSize="16sp" />
+
+                <RadioButton
+                    android:id="@+id/radio_female"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="F"
+                    android:textColor="@color/r1"
+                    android:textSize="16sp" />
+
+            </RadioGroup>
 
         </LinearLayout>
 
@@ -206,28 +221,29 @@
                 android:textColor="@color/r1"
                 android:textSize="20dp"
                 />
-
-            <CheckBox
-                android:id="@+id/checkboxPatient"
+            <RadioGroup
+                android:id="@+id/account_type_radio_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:buttonTint="@color/r1"
-                android:text="Patient"
-                android:textColor="@color/r1"
-                android:textSize="16sp"
-                tools:ignore="TouchTargetSizeCheck" />
+                android:orientation="horizontal">
 
-            <CheckBox
-                android:id="@+id/checkboxMedecin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:buttonTint="@color/r1"
-                android:text="Medecin"
-                android:textColor="@color/r1"
-                android:textSize="16sp"
-                tools:ignore="TouchTargetSizeCheck" />
+                <RadioButton
+                    android:id="@+id/radio_patient"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Patient"
+                    android:textColor="@color/r1"
+                    android:textSize="16sp" />
+
+                <RadioButton
+                    android:id="@+id/radio_doctor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Médecin"
+                    android:textColor="@color/r1"
+                    android:textSize="16sp" />
+
+            </RadioGroup>
         </LinearLayout>
 
 

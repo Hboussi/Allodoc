@@ -1,5 +1,6 @@
 package com.example.allodoc;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView nameTextView;
     private TextView emailTextView;
+    private  Button go_tologin ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
         nameTextView = findViewById(R.id.nameTextView);
         emailTextView = findViewById(R.id.emailTextView);
+        go_tologin = findViewById(R.id.go_tologin);
 
         Button getUserButton = findViewById(R.id.getUserButton);
         getUserButton.setOnClickListener(new View.OnClickListener() {
@@ -37,6 +40,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Execute AsyncTask to fetch data
                 new FetchDataAsyncTask().execute("https://jsonplaceholder.typicode.com/users/1");
+            }
+        });
+        go_tologin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,Register.class));
+                finish();
             }
         });
     }
