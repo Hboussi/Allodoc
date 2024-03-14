@@ -5,14 +5,38 @@
     android:layout_height="match_parent"
     tools:context=".HomeFragement">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:text="Home fragment"
-        />
+        android:layout_height="match_parent">
+
+        <!-- Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="197dp"
+            android:layout_marginTop="-50dp"
+            android:background="@drawable/ronded_corner2"
+            android:orientation="vertical"
+            android:gravity="bottom">
+
+            <!-- Your header content here -->
+
+            <!-- Spacer to push the text to the bottom -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="53dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Welcome"
+                android:textColor="@color/black"
+                android:textSize="40dp"
+                android:layout_gravity="bottom|center_horizontal" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
 
 </FrameLayout>

@@ -40,14 +40,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Execute AsyncTask to fetch data
-                new FetchDataAsyncTask().execute("https://allodoc.uxuitrends.com/api/users");
+//                new FetchDataAsyncTask().execute("https://allodoc.uxuitrends.com/api/users");
+                startActivity(new Intent(MainActivity.this, Login.class));
             }
         });
 
         go_tologin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, Register.class));
+                startActivity(new Intent(MainActivity.this, Home.class));
                 finish();
             }
         });

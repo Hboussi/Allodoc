@@ -26,6 +26,7 @@ public class Home extends AppCompatActivity {
 
         bottomNavigationView =  findViewById(R.id.bottomNavView);
         frameLayout = findViewById(R.id.frameLayout);
+        loadFragement(new HomeFragement(),true);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -42,7 +43,6 @@ public class Home extends AppCompatActivity {
                 }else{// nav profile
                     loadFragement(new ProfileFragment(),false);
                 }
-              //  loadFragement(new HomeFragement(),true);
                 return true;
             }
         });
