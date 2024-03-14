@@ -86,7 +86,7 @@ public class Register extends AppCompatActivity {
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        String selectedDate = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+                        String selectedDate = year+ "/" + (monthOfYear + 1) + "/" +dayOfMonth  ;
                         birthday_button.setText(selectedDate);
                     }
                 },
@@ -124,23 +124,38 @@ public class Register extends AppCompatActivity {
                 RadioButton selectedAccountTypeRadioButton = findViewById(selectedAccountTypeRadioButtonId);
                 String accountType = selectedAccountTypeRadioButton.getText().toString();
 
-                // Create JSON object with registration data
-                JSONObject jsonObject = new JSONObject();
-                try {
-                    jsonObject.put("firstName", firstName);
-                    jsonObject.put("lastName", lastName);
-                    jsonObject.put("email", email);
-                    jsonObject.put("phone", phone);
-                    jsonObject.put("password", password);
-                    jsonObject.put("birthday", birthday);
-                    jsonObject.put("gender", gender);
-                    jsonObject.put("accountType", accountType);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                // Empty validation
+                if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || phone.isEmpty() ||
+                        password.isEmpty() || confirmPassword.isEmpty() || birthday.isEmpty()) {
+                    Toast.makeText(Register.this, "Veuillez remplir tous les champs.", Toast.LENGTH_SHORT).show();
+                    return;
+                }else {
+                    // Passwor and confirmpassord matching
+                    if(!password.equals(confirmPassword)){
+                        Toast.makeText(Register.this, "Les mots de passe ne correspondent pas.", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Log.d("Register", birthday );
+                        // Create JSON object with registration data
+                        JSONObject jsonObject = new JSONObject();
+                        try {
+                            jsonObject.put("first_name", firstName);
+                            jsonObject.put("last_name", lastName);
+                            jsonObject.put("email", email);
+                            jsonObject.put("phone", phone);
+                            jsonObject.put("birthday", birthday);
+                            jsonObject.put("password", password);
+                            jsonObject.put("gender", gender);
+                            jsonObject.put("account_type", accountType);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        // Send data to the API
+                        sendRegistrationData(jsonObject);
+                    }
                 }
 
-                // Send data to the API
-                sendRegistrationData(jsonObject);
+
             }
         });
     }
@@ -156,7 +171,8 @@ public class Register extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         // Handle successful response
                         Toast.makeText(Register.this, "Registration successful", Toast.LENGTH_SHORT).show();
-
+                        startActivity(new Intent(Register.this, Home.class));
+                        finish();
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -164,7 +180,6 @@ public class Register extends AppCompatActivity {
                 // Handle error response
                 Toast.makeText(Register.this, "Registration failed", Toast.LENGTH_SHORT).show();
                 Log.e("Volley Error", error.toString());
-
             }
         });
 

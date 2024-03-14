@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView nameTextView;
     private TextView emailTextView;
-    private  Button go_tologin ;
+    private Button go_tologin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +40,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Execute AsyncTask to fetch data
-                new FetchDataAsyncTask().execute("https://jsonplaceholder.typicode.com/users/1");
+                new FetchDataAsyncTask().execute("https://allodoc.uxuitrends.com/api/users");
             }
         });
+
         go_tologin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,Register.class));
+                startActivity(new Intent(MainActivity.this, Register.class));
                 finish();
             }
         });
@@ -80,8 +82,13 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             // Process JSON data and update UI
             try {
-                JSONObject user = new JSONObject(result);
-                String name = user.getString("name");
+                JSONObject response = new JSONObject(result);
+                JSONArray users = response.getJSONArray("data");
+
+                // Assuming you want to display the first user's data
+                JSONObject user = users.getJSONObject(1); // Index 1 because index 0 is an empty object in the provided JSON
+
+                String name = user.getString("first_name") + " " + user.getString("last_name");
                 String email = user.getString("email");
 
                 nameTextView.setText("Name: " + name);
