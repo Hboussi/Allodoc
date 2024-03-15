@@ -1,16 +1,19 @@
 package com.example.allodoc;
 
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.example.allodoc.Folder;
+import com.example.allodoc.FolderAdapter;
+import com.example.allodoc.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +22,11 @@ public class FoldersFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private FolderAdapter adapter;
-    private Button addFolder;
-    private LinearLayout Foldeinfo;
+    private Button addFolderButton;
+    private LinearLayout folderInfoLayout;
+    private  Button ok;
+
+    private  Button cancel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,17 +36,43 @@ public class FoldersFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        addFolder = view.findViewById(R.id.add_folder); // corrected findViewById
-        Foldeinfo = view.findViewById(R.id.folderinfo);
-        addFolder.setOnClickListener(new View.OnClickListener() {
+        addFolderButton = view.findViewById(R.id.add_folder);
+        folderInfoLayout = view.findViewById(R.id.folderinfo);
+        ok = view.findViewById(R.id.okBtn);
+        cancel = view.findViewById(R.id.cancelBtn);
+
+        addFolderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Add a new folder item when the button is clicked
-                addNewFolder();
-                Foldeinfo.setVisibility(View.VISIBLE);
+                // Toggle visibility of folderinfo
+                if (folderInfoLayout.getVisibility() == View.VISIBLE) {
+                    folderInfoLayout.setVisibility(View.GONE);
+                } else {
+                    folderInfoLayout.setVisibility(View.VISIBLE);
+                    // Adjust layout parameters to take up the entire page
+                    ViewGroup.LayoutParams params = folderInfoLayout.getLayoutParams();
+                    params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+                    folderInfoLayout.setLayoutParams(params);
+                }
             }
         });
 
+        //Cance addin a folder
+         cancel.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 folderInfoLayout.setVisibility(View.GONE);
+             }
+         });
+
+         //Ok send Folder data to the data base
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Dossier ajouter avec success", Toast.LENGTH_SHORT).show();
+                folderInfoLayout.setVisibility(View.GONE);
+            }
+        });
         // Create a list of folders (for testing purposes)
         List<Folder> folders = new ArrayList<>();
         folders.add(new Folder("Folder 1"));
@@ -51,19 +83,5 @@ public class FoldersFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         return view;
-    }
-
-    private void addNewFolder() {
-        // Get the current list of folders from the adapter
-        List<Folder> currentFolders = adapter.getFolders();
-
-        // Create a new folder (you can replace "New Folder" with your desired default folder name)
-        Folder newFolder = new Folder("New Folder");
-
-        // Add the new folder to the list
-        currentFolders.add(newFolder);
-
-        // Notify the adapter that the data set has changed
-        adapter.notifyDataSetChanged();
     }
 }

@@ -134,7 +134,6 @@ public class Register extends AppCompatActivity {
                     if(!password.equals(confirmPassword)){
                         Toast.makeText(Register.this, "Les mots de passe ne correspondent pas.", Toast.LENGTH_SHORT).show();
                     }else {
-                        Log.d("Register", birthday );
                         // Create JSON object with registration data
                         JSONObject jsonObject = new JSONObject();
                         try {
@@ -146,6 +145,16 @@ public class Register extends AppCompatActivity {
                             jsonObject.put("password", password);
                             jsonObject.put("gender", gender);
                             jsonObject.put("account_type", accountType);
+
+                            // Store infromation of user
+                            User user = User.getInstance();
+                            user.setFirstName(firstName);
+                            user.setLastName(lastName);
+                            user.setEmail(email);
+                            user.setPhone(phone);
+                            user.setBirthday(birthday);
+                            user.setGender(gender);
+                            user.setAccountType(accountType);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
