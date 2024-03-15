@@ -9,44 +9,10 @@
     android:paddingBottom="16dp"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/nameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="8dp"/>
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"/>
 
-    <TextView
-        android:id="@+id/emailTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:layout_below="@id/nameTextView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"/>
-
-    <Button
-        android:id="@+id/getUserButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Get User"
-        android:layout_below="@id/emailTextView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"/>
-
-    <Button
-        android:id="@+id/go_tologin"
-        android:layout_width="130dp"
-        android:layout_height="86dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="117dp"
-        android:layout_marginTop="268dp"
-        android:layout_marginEnd="149dp"
-        android:layout_marginBottom="361dp"
-        android:text="Login" />
 </RelativeLayout>
