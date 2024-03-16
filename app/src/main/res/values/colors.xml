@@ -10,5 +10,9 @@
     <color name="b2">#579AF2</color>
     <color name="b3">#7EB0F2</color>
     <color name="bg">#F29B88</color>
+    <color name="customButtonColor">#FFFD64F5</color>
+
+    <color name="material_dynamic_tertiary70">#FFFD4543</color>
+
 
 </resources>

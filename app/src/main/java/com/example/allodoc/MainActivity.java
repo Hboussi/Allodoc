@@ -1,37 +1,130 @@
 package com.example.allodoc;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.widget.ImageView;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int SPLASH_DISPLAY_LENGTH = 3000; // 3 seconds
-    private ImageView imageView;
+    private TextView nameTextView;
+    private TextView emailTextView;
 
-    @SuppressLint("MissingInflatedId")
+    private ImageButton goToFilesButton;
+    private Button getUserButton;
+    private Button goToLoginButton;
+
+    private View fragmentContainer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        imageView = findViewById(R.id.imageView);
+        nameTextView = findViewById(R.id.nameTextView);
+        emailTextView = findViewById(R.id.emailTextView);
+        goToFilesButton = findViewById(R.id.to_files);
+        getUserButton = findViewById(R.id.getUserButton);
+        goToLoginButton = findViewById(R.id.go_tologin);
+        fragmentContainer = findViewById(R.id.fragment_container);
 
-        // Set the image resource to @drawable/icon
-        imageView.setImageResource(R.drawable.icon);
-
-        // Delay switching to the login activity
-        new Handler().postDelayed(new Runnable() {
+        getUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                Intent intent = new Intent(MainActivity.this, Login.class);
-                startActivity(intent);
+            public void onClick(View v) {
+                // Execute AsyncTask to fetch data
+//                new FetchDataAsyncTask().execute("https://allodoc.uxuitrends.com/api/users");
+                // startActivity(new Intent(MainActivity.this, Login.class));
+            }
+        });
+
+        goToFilesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("MainActivity", "Button clicked");
+                showFilesFragment();
+            }
+        });
+
+        goToLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, Home.class));
                 finish();
             }
-        }, SPLASH_DISPLAY_LENGTH);
+        });
+    }
+
+    private void showFilesFragment() {
+        Fragment filesFragment = new FilesFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, filesFragment)
+                .commit();
+
+        // Set background color to white to hide buttons
+        fragmentContainer.setBackgroundColor(getResources().getColor(android.R.color.white));
+    }
+
+    private class FetchDataAsyncTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... urls) {
+            String result = "";
+            try {
+                URL url = new URL(urls[0]);
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                try {
+                    InputStream in = urlConnection.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        result += line;
+                    }
+                } finally {
+                    urlConnection.disconnect();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            // Process JSON data and update UI
+            try {
+                JSONObject response = new JSONObject(result);
+                JSONArray users = response.getJSONArray("data");
+
+                // Assuming you want to display the first user's data
+                JSONObject user = users.getJSONObject(1); // Index 1 because index 0 is an empty object in the provided JSON
+
+                String name = user.getString("first_name") + " " + user.getString("last_name");
+                String email = user.getString("email");
+
+                nameTextView.setText("Name: " + name);
+                emailTextView.setText("Email: " + email);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
