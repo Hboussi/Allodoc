@@ -1,4 +1,4 @@
-package com.example.allodoc;
+package com.example.allodoc.Auth;
 
 import android.content.Context;
 import android.util.Log;
@@ -10,8 +10,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class User {
     private static User instance;
@@ -26,11 +32,66 @@ public class User {
     private String accountType;
     private String isActive;
 
+    // patient information
+    private  int idp;
+    private String address;
+    private String weight;
+    // medecin information
+    private int idm;
+    private String fax;
+    private String siteweb;
+
+    public int getIdm() {
+        return idm;
+    }
+
+    public void setIdm(int idm) {
+        this.idm = idm;
+    }
+
+    public String getFax() {
+        return fax;
+    }
+
+    public void setFax(String fax) {
+        this.fax = fax;
+    }
+
+    public String getSiteweb() {
+        return siteweb;
+    }
+
+    public void setSiteweb(String siteweb) {
+        this.siteweb = siteweb;
+    }
+
+    public String getLoscation() {
+        return loscation;
+    }
+
+    public void setLoscation(String loscation) {
+        this.loscation = loscation;
+    }
+
+    public String getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(String reviews) {
+        this.reviews = reviews;
+    }
+
+    private String loscation;
+    private  String reviews;
+
+
+
+
+
+
     private RequestQueue requestQueue;
 
-    private User() {
-        // Private constructor to prevent instantiation
-    }
+    private User() {}
 
     public static synchronized User getInstance(Context context) {
         if (instance == null) {
@@ -50,6 +111,8 @@ public class User {
         this.id = id;
     }
 
+    public  int getIdp(){return idp;}
+    public void setIdp(int idp){this.idp=idp;}
     public String getFirstName() {
         return firstName;
     }
@@ -105,10 +168,14 @@ public class User {
     public void setAccountType(String accountType) {
         this.accountType = accountType;
     }
-
     public String getIsActive() {
         return isActive;
     }
+    public String getAddress() {return address;}
+        public void setAddress(String address) {this.address = address;}
+    public String getWeight() {return weight;}
+
+    public void setWeight(String weight) {this.weight = weight;}
 
     public void setIsActive(String isActive) {
         this.isActive = isActive;
@@ -163,7 +230,49 @@ public class User {
             // Add the request to the RequestQueue
             requestQueue.add(jsonObjectRequest);
         }
+    public void getPatientInformation(int userId, final UserCallback callback) {
+        String url = "https://allodoc.uxuitrends.com/public/api/FindPatientByUserId?user_id=" + userId;
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            if (response.has("data")) {
+                                JSONObject data = response.getJSONObject("data");
+                                int patientId = data.getInt("id");
+                                String mobile = data.isNull("mobile") ? null : data.getString("mobile");
+                                String birthday = data.isNull("birthday") ? null : data.getString("birthday");
+                                String address = data.isNull("adress") ? null : data.getString("adress");
+                                String weight = data.isNull("weight") ? null : data.getString("weight");
+                                callback.onPatientReceived(patientId, mobile, birthday, address, weight);
+                            } else if (response.has("error")) {
+                                String errorMessage = response.getString("error");
+                                callback.onPatientError(errorMessage);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            callback.onPatientError("Error parsing JSON response");
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                        callback.onPatientError("Error fetching patient information");
+                    }
+                });
+
+        // Add the request to the RequestQueue
+        requestQueue.add(jsonObjectRequest);
+    }
+
     public interface UserCallback {
         void onUserReceived();
+        void onPatientNotFound();
+        void onPatientError(String errorMessage);
+
+        void onPatientReceived(int patientId, String mobile, String birthday, String address, String weight);
     }
 }

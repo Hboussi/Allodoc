@@ -1,4 +1,4 @@
-package com.example.allodoc;
+package com.example.allodoc.files;
 
 import android.content.Context;
 import android.net.Uri;

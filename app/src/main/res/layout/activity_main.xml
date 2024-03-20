@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -49,4 +50,21 @@
         android:layout_marginEnd="149dp"
         android:layout_marginBottom="361dp"
         android:text="Login" />
+
+    <ImageButton
+        android:id="@+id/to_files"
+        android:layout_width="82dp"
+        android:layout_height="114dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="56dp"
+        android:layout_marginBottom="125dp"
+        android:background="#fffd4543"
+        android:contentDescription="@string/app_name"
+        app:srcCompat="@android:drawable/stat_notify_sdcard" />
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </RelativeLayout>

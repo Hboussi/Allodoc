@@ -1,4 +1,4 @@
-package com.example.allodoc;
+package com.example.allodoc.Auth;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,6 +22,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.allodoc.Medecin.MHome;
+import com.example.allodoc.R;
 import com.example.allodoc.patient.Home;
 
 import org.json.JSONException;
@@ -192,6 +193,15 @@ public class Register extends AppCompatActivity {
                                     // Start Home activity for patients
 
                                 }
+                                @Override
+                                public void onPatientNotFound() {}
+                                @Override
+                                public void onPatientError(String errorMessage) {}
+
+                                @Override
+                                public void onPatientReceived(int patientId, String mobile, String birthday, String address, String weight) {
+
+                                }
                             });
                         } else {
                             user.getUser(email, new User.UserCallback() {
@@ -201,6 +211,14 @@ public class Register extends AppCompatActivity {
                                     createDoctor(userId);
                                     // Start MHome activity for other account types
                                     startActivity(new Intent(Register.this,MHome.class));
+                                }
+                                @Override
+                                public void onPatientNotFound() {}
+                                @Override
+                                public void onPatientError(String errorMessage) {}
+
+                                @Override
+                                public void onPatientReceived(int patientId, String mobile, String birthday, String address, String weight) {
 
                                 }
                             });
@@ -222,7 +240,6 @@ public class Register extends AppCompatActivity {
     // Creatoin of the[----- patien -----]
     private void createPatient(int userId) {
         // Define your API URL for creating a patient
-        Log.d("User ID",String.valueOf(userId));
         String url = "https://allodoc.uxuitrends.com/api/patients";
         // Create JSON object with patient data
         JSONObject patientData = new JSONObject();

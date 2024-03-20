@@ -1,4 +1,4 @@
-package com.example.allodoc;
+package com.example.allodoc.files;
 
 public class
 FileModel {

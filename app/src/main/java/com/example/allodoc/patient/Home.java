@@ -7,15 +7,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import com.example.allodoc.R;
-import com.example.allodoc.User;
-import com.example.allodoc.patient.FoldersFragment;
-import com.example.allodoc.patient.HomeFragment;
-import com.example.allodoc.patient.ProfileFragment;
-import com.example.allodoc.patient.ShareFragment;
+import com.example.allodoc.Auth.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Home extends AppCompatActivity {
@@ -23,7 +21,7 @@ public class Home extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private FrameLayout frameLayout;
 
-    private User user;
+    private User user ;
 
 
 
@@ -34,12 +32,13 @@ public class Home extends AppCompatActivity {
         bottomNavigationView =  findViewById(R.id.bottomNavView);
         frameLayout = findViewById(R.id.frameLayout);
         loadFragement(new HomeFragment(),true);
-
+        user = User.getInstance(this);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                 int itemId = item.getItemId();
+                int userId = user.getId();
 
                 if(itemId == R.id.navHome){
                    loadFragement(new HomeFragment(),false);
@@ -48,7 +47,29 @@ public class Home extends AppCompatActivity {
                 } else if (itemId == R.id.navFolders) {
                     loadFragement(new FoldersFragment(),false);
                 }else{// nav profile
-                    loadFragement(new ProfileFragment(),false);
+                    user.getPatientInformation(userId, new User.UserCallback() {
+                        @Override
+                        public void onUserReceived() {
+                        }
+
+                        @Override
+                        public void onPatientNotFound() {
+                        }
+
+                        @Override
+                        public void onPatientError(String errorMessage) {
+                            Log.d("Patient error", "Error getting a patient");
+                        }
+                        @Override
+                        public void onPatientReceived(int patientId, String mobile, String birthday, String address, String weight) {
+                            user.setIdp(patientId);
+                            if (mobile == null || birthday == null || address == null || weight == null) {
+                                loadFragement(new CompletInfo(),false);
+                            }else{
+                                loadFragement(new ProfileFragment(),false);
+                            }
+                        }
+                    });
                 }
                 return true;
             }

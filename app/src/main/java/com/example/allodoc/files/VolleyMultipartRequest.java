@@ -1,4 +1,4 @@
-package com.example.allodoc;
+package com.example.allodoc.files;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;

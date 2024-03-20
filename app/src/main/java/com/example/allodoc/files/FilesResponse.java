@@ -1,4 +1,6 @@
-package com.example.allodoc;
+package com.example.allodoc.files;
+
+import com.example.allodoc.files.FileModel;
 
 import java.util.List;
 

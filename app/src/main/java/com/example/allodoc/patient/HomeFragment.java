@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.allodoc.R;
-import com.example.allodoc.User;
+import com.example.allodoc.Auth.User;
 
 public class HomeFragment extends Fragment {
 

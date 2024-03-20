@@ -1,4 +1,4 @@
-package com.example.allodoc;
+package com.example.allodoc.Auth;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.allodoc.Medecin.MHome;
+import com.example.allodoc.R;
 import com.example.allodoc.patient.Home;
 
 import org.json.JSONException;
@@ -106,6 +107,18 @@ public class Login extends AppCompatActivity {
                                             startActivity(new Intent(Login.this, MHome.class));
                                         }
                                         finish();
+                                    }
+
+                                    @Override
+                                    public void onPatientNotFound() {
+                                    }
+                                    @Override
+                                    public void onPatientError(String errorMessage) {
+                                    }
+
+                                    @Override
+                                    public void onPatientReceived(int patientId, String mobile, String birthday, String address, String weight) {
+
                                     }
                                 });
                             } else if (response.has("error") && "Unauthorized".equals(response.getString("error"))) {

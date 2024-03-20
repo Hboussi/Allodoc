@@ -12,6 +12,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.allodoc.Auth.Login;
+import com.example.allodoc.files.FilesFragment;
+import com.example.allodoc.patient.Home;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,9 +53,8 @@ public class MainActivity extends AppCompatActivity {
         getUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Execute AsyncTask to fetch data
-//                new FetchDataAsyncTask().execute("https://allodoc.uxuitrends.com/api/users");
-                // startActivity(new Intent(MainActivity.this, Login.class));
+             startActivity(new Intent(MainActivity.this, Login.class));
+             finish();
             }
         });
 
