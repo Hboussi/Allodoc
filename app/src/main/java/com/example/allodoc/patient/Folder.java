@@ -1,4 +1,4 @@
-package com.example.allodoc;
+package com.example.allodoc.patient;
 
 public class Folder {
     private String name;

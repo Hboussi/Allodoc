@@ -1,4 +1,4 @@
-package com.example.allodoc;
+package com.example.allodoc.patient;
 
 import android.os.Bundle;
 
@@ -9,10 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class HomeFragement extends Fragment {
+import com.example.allodoc.R;
+import com.example.allodoc.User;
 
-    private TextView User_name;
-    private String name;
+public class HomeFragment extends Fragment {
+
+    private TextView userNameTextView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -22,12 +24,12 @@ public class HomeFragement extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home_fragement, container, false);
 
         // Initialize the TextView
-        User_name = view.findViewById(R.id.userName);
+        userNameTextView = view.findViewById(R.id.userName);
 
-        // Show the user name
-        User user = User.getInstance();
-        name = user.getFirstName();
-        User_name.setText(name);
+        // Retrieve user name from User singleton
+        User user = User.getInstance(this.getContext());
+        String userName = user.getFirstName(); // Assuming you have the user's first name stored
+        userNameTextView.setText(" "+userName);
 
         return view;
     }

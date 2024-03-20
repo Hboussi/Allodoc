@@ -1,4 +1,4 @@
-package com.example.allodoc;
+package com.example.allodoc.patient;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
@@ -11,8 +11,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.example.allodoc.Folder;
-import com.example.allodoc.FolderAdapter;
 import com.example.allodoc.R;
 
 import java.util.ArrayList;

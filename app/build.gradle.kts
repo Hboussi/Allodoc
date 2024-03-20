@@ -52,7 +52,7 @@ dependencies {
 
     // OkHttp (optionnel, mais souvent utilisé avec Retrofit)
     implementation ("com.squareup.okhttp3:okhttp:4.9.3")
-    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.3") // Interceptor pour les logs
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.3")
 
     // CARD VIEW
     implementation ("androidx.cardview:cardview:1.0.0")

@@ -1,7 +1,5 @@
 package com.example.allodoc;
 
-import static android.content.ContentValues.TAG;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -19,13 +17,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-
+import com.example.allodoc.Medecin.MHome;
+import com.example.allodoc.patient.Home;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Login extends AppCompatActivity {
 
+    private User user;
     private EditText emailEditText;
     private EditText passwordEditText;
     private Button loginButton;
@@ -37,6 +37,8 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        user = User.getInstance(this);
 
         // Initialize views
         emailEditText = findViewById(R.id.emailaddressLogin);
@@ -70,7 +72,6 @@ public class Login extends AppCompatActivity {
             }
         });
     }
-
     private void performLogin(String email, String password) {
         // Define your API URL
         String url = "https://allodoc.uxuitrends.com/api/login";
@@ -93,9 +94,21 @@ public class Login extends AppCompatActivity {
                             if (response.has("token")) {
                                 // Login successful
                                 Toast.makeText(Login.this, "Login successful", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(Login.this, Home.class));
-                                finish();
-                            } else if (response.has("error") && response.getString("error").equals("Unauthorized")) {
+                                user.setEmail(email);
+
+                                user.getUser(email, new User.UserCallback() {
+                                    @Override
+                                    public void onUserReceived() {
+                                        String account_type = user.getAccountType();
+                                        if ("patient".equals(account_type)) {
+                                            startActivity(new Intent(Login.this, Home.class));
+                                        } else {
+                                            startActivity(new Intent(Login.this, MHome.class));
+                                        }
+                                        finish();
+                                    }
+                                });
+                            } else if (response.has("error") && "Unauthorized".equals(response.getString("error"))) {
                                 // Login failed
                                 Toast.makeText(Login.this, "Invalid email or password", Toast.LENGTH_SHORT).show();
                             }
@@ -115,5 +128,4 @@ public class Login extends AppCompatActivity {
         // Add the request to the RequestQueue
         requestQueue.add(request);
     }
-
 }

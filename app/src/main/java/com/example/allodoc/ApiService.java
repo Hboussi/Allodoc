@@ -9,11 +9,11 @@ import retrofit2.http.POST;
 import retrofit2.http.Part;
 
 public interface ApiService {
-    @GET("files")
+    @GET("com/example/allodoc/files")
     Call<FilesResponse> getFiles();
 
     @Multipart
-    @POST("files")
+    @POST("com/example/allodoc/files")
     Call<FileResponse> uploadFile(
             @Part MultipartBody.Part file,
             @Part("description") RequestBody description,

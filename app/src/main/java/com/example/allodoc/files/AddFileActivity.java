@@ -1,4 +1,4 @@
-package com.example.allodoc;
+package com.example.allodoc.files;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -20,6 +20,9 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+import com.example.allodoc.FileUtils;
+import com.example.allodoc.R;
+import com.example.allodoc.VolleyMultipartRequest;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,5 +1,7 @@
 package com.example.allodoc;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,15 +15,14 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.allodoc.R;
+import com.example.allodoc.Medecin.MHome;
+import com.example.allodoc.patient.Home;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,6 +31,7 @@ import java.util.Calendar;
 
 public class Register extends AppCompatActivity {
 
+    // Declare your UI components and other variables here
     private EditText firstNameEditText;
     private EditText lastNameEditText;
     private EditText emailEditText;
@@ -47,6 +49,7 @@ public class Register extends AppCompatActivity {
 
     private RequestQueue requestQueue;
     private TextView loginNow;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,17 +68,21 @@ public class Register extends AppCompatActivity {
         registerButton = findViewById(R.id.registerBtn);
         birthday_button = findViewById(R.id.birthday_button);
         loginNow = findViewById(R.id.loginNow);
+
         // Initialize Volley request queue
         requestQueue = Volley.newRequestQueue(this);
 
         // Initialize calendar
         calendar = Calendar.getInstance();
 
+        // Initialize user
+        user = User.getInstance(this);
+
         // go to the login page
         loginNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Register.this,Login.class));
+                startActivity(new Intent(Register.this, Login.class));
                 finish();
             }
         });
@@ -86,7 +93,7 @@ public class Register extends AppCompatActivity {
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        String selectedDate = year+ "/" + (monthOfYear + 1) + "/" +dayOfMonth  ;
+                        String selectedDate = year + "/" + (monthOfYear + 1) + "/" + dayOfMonth;
                         birthday_button.setText(selectedDate);
                     }
                 },
@@ -119,7 +126,6 @@ public class Register extends AppCompatActivity {
                 int selectedGenderRadioButtonId = genderRadioGroup.getCheckedRadioButtonId();
                 RadioButton selectedGenderRadioButton = findViewById(selectedGenderRadioButtonId);
                 String gender = selectedGenderRadioButton.getText().toString();
-
                 int selectedAccountTypeRadioButtonId = accountTypeRadioGroup.getCheckedRadioButtonId();
                 RadioButton selectedAccountTypeRadioButton = findViewById(selectedAccountTypeRadioButtonId);
                 String accountType = selectedAccountTypeRadioButton.getText().toString();
@@ -129,11 +135,11 @@ public class Register extends AppCompatActivity {
                         password.isEmpty() || confirmPassword.isEmpty() || birthday.isEmpty()) {
                     Toast.makeText(Register.this, "Veuillez remplir tous les champs.", Toast.LENGTH_SHORT).show();
                     return;
-                }else {
-                    // Passwor and confirmpassord matching
-                    if(!password.equals(confirmPassword)){
+                } else {
+                    // Password and confirm password matching
+                    if (!password.equals(confirmPassword)) {
                         Toast.makeText(Register.this, "Les mots de passe ne correspondent pas.", Toast.LENGTH_SHORT).show();
-                    }else {
+                    } else {
                         // Create JSON object with registration data
                         JSONObject jsonObject = new JSONObject();
                         try {
@@ -146,22 +152,20 @@ public class Register extends AppCompatActivity {
                             jsonObject.put("gender", gender);
                             jsonObject.put("account_type", accountType);
 
-
                         } catch (JSONException e) {
+                            Log.d("json", "error in the json object");
                             e.printStackTrace();
                         }
 
                         // Send data to the API
-                        sendRegistrationData(jsonObject);
+                        sendRegistrationData(jsonObject,accountType);
                     }
                 }
-
-
             }
         });
     }
 
-    private void sendRegistrationData(JSONObject data) {
+    private void sendRegistrationData(JSONObject data,String accountType) {
         // Define your API URL
         String url = "https://allodoc.uxuitrends.com/api/users";
 
@@ -171,10 +175,37 @@ public class Register extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         // Handle successful response
+                        // Retrieve user instance and set user email
+                         user.setEmail(emailEditText.getText().toString());
+                        String email= user.getEmail();
                         Toast.makeText(Register.this, "Registration successful", Toast.LENGTH_SHORT).show();
 
-                        startActivity(new Intent(Register.this, Home.class));
-                        finish();
+                        // Redirect user based on account type
+                        if (accountType.equals("patient")) {
+                            user.getUser(email, new User.UserCallback() {
+                                @Override
+                                public void onUserReceived() {
+                                    // Extract user ID from the response
+                                    int userId = user.getId();
+                                    // Create patient with the obtained user ID
+                                    createPatient(userId);
+                                    // Start Home activity for patients
+
+                                }
+                            });
+                        } else {
+                            user.getUser(email, new User.UserCallback() {
+                                @Override
+                                public void onUserReceived() {
+                                    int userId= user.getId();
+                                    createDoctor(userId);
+                                    // Start MHome activity for other account types
+                                    startActivity(new Intent(Register.this,MHome.class));
+
+                                }
+                            });
+                        }
+                        finish(); // Finish current activity
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -186,6 +217,100 @@ public class Register extends AppCompatActivity {
         });
 
         // Add the request to the RequestQueue
-        requestQueue.add(request);
+        Volley.newRequestQueue(this).add(request);
     }
+    // Creatoin of the[----- patien -----]
+    private void createPatient(int userId) {
+        // Define your API URL for creating a patient
+        Log.d("User ID",String.valueOf(userId));
+        String url = "https://allodoc.uxuitrends.com/api/patients";
+        // Create JSON object with patient data
+        JSONObject patientData = new JSONObject();
+        try {
+            patientData.put("user_id", userId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Create a JsonObjectRequest for creating a patient
+        JsonObjectRequest patientRequest = new JsonObjectRequest(Request.Method.POST, url, patientData,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // Handle successful response
+                        startActivity(new Intent(Register.this, Home.class));
+                        Toast.makeText(Register.this, "Patient cree avec  sucsse", Toast.LENGTH_SHORT).show();
+                        Log.d("Register", "Patient created successfully");
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Handle error response
+                Log.e("Register", "Error creating patient: " + error.toString());
+            }
+        });
+
+        // Add the patient creation request to the RequestQueue
+        requestQueue.add(patientRequest);
+    }
+
+
+    // Create a [----- doctor -----]
+
+    private void createDoctor(int userId) {
+        // Define your API URL for creating a doctor
+        Log.d("User ID", String.valueOf(userId));
+        String url = "https://allodoc.uxuitrends.com/api/medecins";
+
+        // Create JSON object with doctor data
+        JSONObject doctorData = new JSONObject();
+        try {
+            doctorData.put("loscation","Null");
+            doctorData.put("user_id", userId);// Assuming speciality is a string parameter for the doctor
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Create a JsonObjectRequest for creating a doctor
+        JsonObjectRequest doctorRequest = new JsonObjectRequest(Request.Method.POST, url, doctorData,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // Handle successful response
+                        startActivity(new Intent(Register.this, MHome.class));
+                        Toast.makeText(Register.this, "Doctor created successfully", Toast.LENGTH_SHORT).show();
+                        Log.d("Register", "Doctor created successfully");
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Handle error response
+                Log.e("Register", "Error creating doctor: " + error.toString());
+            }
+        });
+
+        // Add the doctor creation request to the RequestQueue
+        requestQueue.add(doctorRequest);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
