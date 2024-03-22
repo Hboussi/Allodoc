@@ -50,8 +50,7 @@ public class ProfileFragment extends Fragment {
         textViewBirthday = view.findViewById(R.id.textViewBirthday);
         textViewAddress = view.findViewById(R.id.textViewAddress);
         textViewWeight = view.findViewById(R.id.textViewWeight);
-        Log.d("birthday",user.getBirthday().toString()  );
-
+// set the information in the prfile
         textViewFirstName.setText(user.getFirstName());
         textViewLastName.setText(user.getLastName());
         textViewEmail.setText(user.getEmail());

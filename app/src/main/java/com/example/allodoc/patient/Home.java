@@ -69,6 +69,16 @@ public class Home extends AppCompatActivity {
                                 loadFragement(new ProfileFragment(),false);
                             }
                         }
+
+                        @Override
+                        public void onMedecinReceived(int medecinId,String mobile,String fax,String siteweb,String location) {
+
+                        }
+
+                        @Override
+                        public void onMedecinError(String errorMessage) {
+
+                        }
                     });
                 }
                 return true;

@@ -268,11 +268,53 @@ public class User {
         requestQueue.add(jsonObjectRequest);
     }
 
+    public void getMedecinInformation(int userId, final UserCallback callback) {
+        String url = "https://allodoc.uxuitrends.com/api/FindMedecinByUserId?user_id=" + userId;
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            if (response.has("data")) {
+                                JSONObject data = response.getJSONObject("data");
+                                int medecinId = data.getInt("id");
+                                String reviews = data.isNull("reviews") ? null : data.getString("reviews");
+                                String fax = data.isNull("fax") ? null : data.getString("fax");
+                                String siteweb = data.isNull("siteweb") ? null : data.getString("siteweb");
+                                String location = data.isNull("loscation") ? null : data.getString("loscation");
+                                callback.onMedecinReceived(medecinId, reviews, fax, siteweb, location);
+                            } else if (response.has("error")) {
+                                String errorMessage = response.getString("error");
+                                callback.onMedecinError(errorMessage);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            callback.onMedecinError("Error parsing JSON response");
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                        callback.onMedecinError("Error fetching medecin information");
+                    }
+                });
+
+        // Add the request to the RequestQueue
+        requestQueue.add(jsonObjectRequest);
+    }
+
     public interface UserCallback {
         void onUserReceived();
         void onPatientNotFound();
         void onPatientError(String errorMessage);
 
         void onPatientReceived(int patientId, String mobile, String birthday, String address, String weight);
+
+        void onMedecinReceived(int medecinId,String reviews,String fax,String siteweb,String location);
+
+        void onMedecinError(String errorMessage);
     }
 }

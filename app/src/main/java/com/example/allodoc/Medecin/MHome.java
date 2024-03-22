@@ -16,6 +16,8 @@ import com.example.allodoc.Medecin.Scaner;
 import com.example.allodoc.Medecin.fragment_mhome;
 import com.example.allodoc.R;
 import com.example.allodoc.Auth.User;
+import com.example.allodoc.patient.CompletInfo;
+import com.example.allodoc.patient.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MHome extends AppCompatActivity {
@@ -27,7 +29,7 @@ public class MHome extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_mhome);
         bottomNavigationView = findViewById(R.id.mbottomNavView);
         frameLayout = findViewById(R.id.mframeLayout);
         loadFragment(new fragment_mhome(), true);
@@ -37,6 +39,7 @@ public class MHome extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                 int itemId = item.getItemId();
+                int userId = user.getId();
 
                 if (itemId == R.id.MnavHome) {
                     loadFragment(new fragment_mhome(), false);
@@ -47,7 +50,31 @@ public class MHome extends AppCompatActivity {
                 }else if (itemId == R.id.Mfoldershared) {
                     loadFragment(new foldereshared(), false);
                 }else{
-                    loadFragment(new MProfileFragment(),false);
+                    user.getMedecinInformation(userId, new User.UserCallback() {
+                        @Override
+                        public void onUserReceived() {}
+                        @Override
+                        public void onPatientNotFound() {}
+                        @Override
+                        public void onPatientError(String errorMessage) {}
+                        @Override
+                        public void onPatientReceived(int patientId, String mobile, String birthday, String address, String weight) {}
+
+                        @Override
+                        public void onMedecinReceived(int medecinId,String reviews,String fax,String siteweb,String location) {
+                            user.setIdm(medecinId);
+                            if (reviews == null || fax == null || location == null || siteweb == null) {
+                                loadFragment(new MCompletInfo(),false);
+                            }else{
+                                loadFragment(new MProfileFragment(),false);
+                            }
+                        }
+
+                        @Override
+                        public void onMedecinError(String errorMessage) {
+
+                        }
+                    });
                 }
                 return true;
             }

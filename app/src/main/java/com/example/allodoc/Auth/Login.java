@@ -120,6 +120,16 @@ public class Login extends AppCompatActivity {
                                     public void onPatientReceived(int patientId, String mobile, String birthday, String address, String weight) {
 
                                     }
+
+                                    @Override
+                                    public void onMedecinReceived(int medecinId,String reviews,String fax,String siteweb,String location) {
+
+                                    }
+
+                                    @Override
+                                    public void onMedecinError(String errorMessage) {
+
+                                    }
                                 });
                             } else if (response.has("error") && "Unauthorized".equals(response.getString("error"))) {
                                 // Login failed
