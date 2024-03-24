@@ -10,8 +10,13 @@
     <color name="b2">#579AF2</color>
     <color name="b3">#7EB0F2</color>
     <color name="bg">#F29B88</color>
+    <color name="blue">#FF0000FF</color>
     <color name="customButtonColor">#FFFD64F5</color>
-
+    <color name="grey">#fff</color>
+    <color name="light_grey">#F5F5F5</color> <!-- Gris clair -->
+    <color name="dark_grey">#333333</color>
+    <color name="light_yellow">#FFFF33</color>
+    <color name="yellow">#FFFF00</color>
     <color name="material_dynamic_tertiary70">#FFFD4543</color>
 
 

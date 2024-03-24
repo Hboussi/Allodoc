@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFEBCD"
-    tools:context=".FoldersFragment">
+    tools:context=".files.FoldersFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -31,6 +32,83 @@
             android:layout_height="match_parent"
             android:background="@drawable/add_folder"
             android:contentDescription="@string/app_name" />
+
     </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/folderinfo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/grey"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        >
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="394dp"
+            android:layout_height="700dp"
+            android:alpha="0.9"
+            android:background="@drawable/ronded_corner"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            >
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+
+
+            <ImageView
+                android:id="@+id/file"
+                android:layout_width="match_parent"
+                android:layout_height="491dp"
+                tools:src="@tools:sample/avatars" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+
+            <TextView
+                android:id="@+id/descriptionFile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="DESCRIPTION"
+                android:textStyle="bold"
+                android:textSize="6pt"
+                android:textColor="#000" />
+
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+
+            <ImageButton
+                android:id="@+id/delete"
+                android:layout_width="56dp"
+                android:layout_height="49dp"
+                android:layout_gravity="right"
+                android:background="@drawable/delete" />
+
+        </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
 
 </FrameLayout>

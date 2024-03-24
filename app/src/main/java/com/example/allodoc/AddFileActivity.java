@@ -1,4 +1,4 @@
-package com.example.allodoc.files;
+package com.example.allodoc;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -20,10 +21,13 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
-import com.example.allodoc.R;
+import com.example.allodoc.files.FileUtils;
+import com.example.allodoc.files.VolleyMultipartRequest;
 
 import java.util.HashMap;
 import java.util.Map;
+import android.view.View;
+
 
 public class AddFileActivity extends AppCompatActivity {
 
@@ -32,6 +36,7 @@ public class AddFileActivity extends AppCompatActivity {
     private EditText descriptionEditText;
     private Button selectImageButton;
     private Button saveButton;
+    private Button back;
     private Uri selectedImageUri;
     private RequestQueue requestQueue;
 
@@ -47,6 +52,23 @@ public class AddFileActivity extends AppCompatActivity {
         descriptionEditText = findViewById(R.id.descriptionEditText);
         selectImageButton = findViewById(R.id.selectImageButton);
         saveButton = findViewById(R.id.saveButton);
+        back = findViewById(R.id.back);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Créer une instance du fragment FilesFragment
+                com.example.allodoc.files.FilesFragment filesFragment = new com.example.allodoc.files.FilesFragment();
+
+                // Remplacer le fragment actuel par FilesFragment
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, filesFragment)
+                        .addToBackStack(null) // Ajouter à la pile de retour
+                        .commit();
+            }
+        });
+
+
 
         // ADD COLOR TO BUTTONS
         selectImageButton.setBackgroundColor(getResources().getColor(R.color.black));

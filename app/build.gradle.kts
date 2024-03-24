@@ -61,9 +61,12 @@ dependencies {
     implementation ("com.squareup.picasso:picasso:2.71828")
 
 
-
+    // COMMONS
     implementation ("commons-io:commons-io:2.11.0")
 
+
+    // ZXING
+    implementation ("com.google.zxing:core:3.3.3")
 
 
 }

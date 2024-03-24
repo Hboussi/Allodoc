@@ -16,15 +16,24 @@ import java.util.List;
 
 public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.FileViewHolder> {
     private List<FileModel> fileList;
+    private OnFileClickListener listener;
 
     public FilesAdapter(List<FileModel> fileList) {
         this.fileList = fileList;
+    }
+
+    public void setOnFileClickListener(OnFileClickListener listener) {
+        this.listener = listener;
     }
 
     public void setFileList(List<FileModel> fileList) {
         this.fileList = fileList;
         notifyDataSetChanged(); // Notifiez l'adaptateur que le jeu de données a changé
     }
+    public interface OnFileClickListener {
+        void onFileClick(int fileId, String path, String description);
+    }
+
 
     @NonNull
     @Override
@@ -44,7 +53,19 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.FileViewHold
                 .placeholder(R.drawable.ic_launcher_background)
                 .error(R.drawable.add_folder)
                 .into(holder.imageFile);
+
+        // Ajoutez un OnClickListener pour l'élément de fichier
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Déclenchez l'événement onFileClick de l'interface OnFileClickListener
+                if (listener != null) {
+                    listener.onFileClick(file.getId(), file.getPath(), file.getDescription()); // Passer l'ID du fichier cliqué
+                }
+            }
+        });
     }
+
 
     @Override
     public int getItemCount() {

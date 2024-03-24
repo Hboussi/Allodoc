@@ -1,8 +1,48 @@
-<!-- item_folder.xml -->
-<TextView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/folderNameTextView"
+<!-- item_file.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp"
-    android:textSize="18sp"/>
+
+    android:orientation="vertical"
+    android:padding="16dp">
+
+
+    <ImageView
+        android:id="@+id/imageFile"
+        android:layout_width="105dp"
+        android:layout_height="67dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="16dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/medical_folder1" />
+
+    <TextView
+        android:id="@+id/folderNameTextView"
+        android:layout_width="177dp"
+        android:layout_height="59dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="84dp"
+        android:layout_toEndOf="@+id/imageFile"
+        android:gravity="center"
+        android:text="Name"
+        android:textAlignment="textStart"
+        android:textColor="#000"
+        android:textSize="9pt" />
+
+    <TextView
+        android:id="@+id/date_creation"
+        android:layout_width="161dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/folderNameTextView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="117dp"
+        android:layout_marginTop="-7dp"
+        android:layout_marginEnd="117dp"
+        android:text="17/05/2024" />
+
+</RelativeLayout>

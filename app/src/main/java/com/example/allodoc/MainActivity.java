@@ -8,12 +8,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.allodoc.Auth.Login;
-import com.example.allodoc.files.FilesFragment;
+import com.example.allodoc.patient.Home;
+
 import com.example.allodoc.patient.Home;
 
 import org.json.JSONArray;
@@ -76,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showFilesFragment() {
-        Fragment filesFragment = new FilesFragment();
+        Fragment filesFragment = new com.example.allodoc.files.FilesFragment();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, filesFragment)
                 .commit();

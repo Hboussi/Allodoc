@@ -28,15 +28,16 @@
       android:id="@+id/folderinfo"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:background="@drawable/low_opacity_white"
+      android:background="@color/grey"
       android:gravity="center_vertical|center_horizontal"
       android:orientation="horizontal"
       android:visibility="gone"
       >
 
+
    <LinearLayout
-       android:layout_width="293dp"
-       android:layout_height="wrap_content"
+       android:layout_width="394dp"
+       android:layout_height="658dp"
        android:alpha="0.9"
        android:background="@drawable/ronded_corner"
        android:gravity="center"
@@ -52,10 +53,10 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:text="Ajoute un dossier"
         android:textColor="@color/r1"
-        android:textSize="25dp"
+        android:textSize="15pt"
         android:textStyle="bold" />
 
     <View
@@ -67,10 +68,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:hint="Folder Name"
+         android:hint="Nom de dossier"
         android:minHeight="48dp"
         android:textColor="@color/r1"
-        android:textColorHint="@color/r1" />
+        android:textColorHint="@color/black" />
 
     <!-- EditText for folder description -->
     <EditText
@@ -78,38 +79,41 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:hint="Folder Description"
+        android:hint="Description de dossier"
         android:minHeight="48dp"
         android:textColor="@color/r1"
-        android:textColorHint="@color/r1" />
+        android:textColorHint="@color/black" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+    <RelativeLayout
+        android:layout_width="336dp"
+        android:layout_height="90dp">
 
      <androidx.appcompat.widget.AppCompatButton
          android:id="@+id/cancelBtn"
          android:layout_width="100dp"
          android:layout_height="wrap_content"
+         android:layout_alignParentBottom="true"
+         android:layout_marginBottom="19dp"
          android:background="@drawable/ronded_corner1cancel"
          android:text="Cancel"
          android:textColor="@color/white"
          android:textSize="20dp" />
 
-     <View
-         android:layout_width="100dp"
-         android:layout_height="match_parent" />
+
 
      <androidx.appcompat.widget.AppCompatButton
          android:id="@+id/okBtn"
          android:layout_width="60dp"
          android:layout_height="wrap_content"
+         android:layout_alignParentEnd="true"
+         android:layout_alignParentBottom="true"
+         android:layout_marginEnd="7dp"
+         android:layout_marginBottom="19dp"
          android:background="@drawable/ronded_corner1ok"
          android:text="OK"
          android:textColor="@color/white"
          android:textSize="20dp" />
-    </LinearLayout>
+    </RelativeLayout>
 
    </LinearLayout>
 
@@ -117,7 +121,7 @@
 
   <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="61dp"
+      android:layout_height="66dp"
       android:gravity="bottom|center_horizontal"
       android:orientation="horizontal">
 
@@ -128,12 +132,17 @@
 
    <androidx.appcompat.widget.AppCompatButton
        android:id="@+id/add_folder"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
+       android:layout_width="103dp"
+       android:layout_height="66dp"
        android:background="@drawable/add_folder"
        android:contentDescription="@string/app_name" />
   </LinearLayout>
 
  </LinearLayout>
+
+      <FrameLayout
+          android:id="@+id/fragment_container"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent" />
 
 </FrameLayout>

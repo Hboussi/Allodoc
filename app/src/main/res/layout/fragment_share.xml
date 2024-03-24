@@ -3,15 +3,171 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f0f8ff "
     tools:context=".patient.ShareFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#f0f8ff"
         android:gravity="center"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:text="Share fragment"
-        />
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="8dp"
+            android:text="Sélectionné la Durée de partage"
+            android:textColor="@color/black"
+            android:textSize="8pt"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinner_duration"
+            android:layout_width="362dp"
+            android:layout_height="55dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="33dp"
+            android:layout_marginTop="79dp"
+            android:background="@drawable/spinner_background"
+            android:entries="@array/durations"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:popupBackground="@color/white" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="196dp">
+
+            <ImageView
+                android:id="@+id/choose_folder_button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="144dp"
+                android:layout_marginBottom="516dp"
+                android:background="@drawable/chose_folder_icon"
+                android:contentDescription="@string/app_name" />
+
+            <TextView
+                android:id="@+id/txt_choisi_folder"
+                android:layout_width="178dp"
+                android:layout_height="43dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="144dp"
+                android:layout_marginEnd="104dp"
+                android:layout_marginBottom="520dp"
+                android:layout_toEndOf="@+id/choose_folder_button"
+                android:gravity="center_vertical"
+                android:text="Choisi dossier"
+                android:textSize="9pt"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/ici"
+                android:layout_width="68dp"
+                android:layout_height="49dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="-130dp"
+                android:layout_marginTop="144dp"
+                android:layout_marginEnd="30dp"
+                android:layout_toEndOf="@+id/txt_choisi_folder"
+                android:gravity="center_vertical"
+                android:text="ici"
+                android:textColor="@color/blue"
+                android:textSize="8pt"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="403dp"
+            android:layout_height="696dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="0dp">
+
+            <TextView
+                android:id="@+id/flder_name"
+                android:layout_width="317dp"
+                android:layout_height="66dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="35dp"
+                android:layout_marginEnd="27dp"
+                android:layout_marginBottom="420dp"
+                android:text=""
+                android:textSize="8pt" />
+
+            <Button
+                android:id="@+id/generate"
+                android:layout_width="323dp"
+                android:layout_height="72dp"
+                android:layout_below="@+id/flder_name"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="-400dp"
+                android:layout_marginEnd="28dp"
+                android:layout_centerHorizontal="true"
+                android:backgroundTint="#FFFFFFD0"
+                android:text="Generate"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="12pt"
+                android:layout_gravity="center_horizontal" />
+
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/img_qrcode"
+            android:layout_width="307dp"
+            android:layout_height="266dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginBottom="34dp"
+            android:background="@drawable/error_qr"
+            tools:src="@tools:sample/avatars" />
+
+
+    </RelativeLayout>
+
+
+    <FrameLayout
+        android:id="@+id/folders"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:visibility="gone">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewFolders"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            android:clipToPadding="false"
+            android:background="@android:color/white"
+            android:scrollbars="vertical" />
+
+
+    </FrameLayout>
+
+
 </FrameLayout>

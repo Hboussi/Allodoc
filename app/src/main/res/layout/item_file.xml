@@ -1,28 +1,48 @@
 <!-- item_file.xml -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="16dp">
 
+
     <ImageView
         android:id="@+id/imageFile"
-        android:layout_width="324dp"
-        android:layout_height="306dp"
-        android:layout_gravity="center"
+        android:layout_width="44dp"
+        android:layout_height="51dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="29dp"
         android:layout_marginBottom="16dp"
         android:scaleType="centerCrop"
         android:src="@drawable/calendar_icon" />
 
-
     <TextView
         android:id="@+id/textFileDescription"
-        android:layout_width="match_parent"
-        android:layout_height="77dp"
-        android:background="@color/material_dynamic_tertiary70"
-        android:gravity="center"
+        android:layout_width="266dp"
+        android:layout_height="39dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="42dp"
+        android:layout_toEndOf="@+id/imageFile"
         android:text="description"
-        android:textColor="#FFF"
-        android:textSize="9pt" />
+        android:textColor="#000"
+        android:textSize="6pt"
+        android:textStyle="bold" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/date_create"
+        android:layout_width="130dp"
+        android:layout_height="24dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="57dp"
+        android:layout_marginEnd="173dp"
+        android:layout_toEndOf="@+id/imageFile"
+        android:text="22/03/2024" />
+
+</RelativeLayout>

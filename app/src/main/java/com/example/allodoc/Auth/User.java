@@ -241,6 +241,7 @@ public class User {
                             if (response.has("data")) {
                                 JSONObject data = response.getJSONObject("data");
                                 int patientId = data.getInt("id");
+                                setIdp(patientId);
                                 String mobile = data.isNull("mobile") ? null : data.getString("mobile");
                                 String birthday = data.isNull("birthday") ? null : data.getString("birthday");
                                 String address = data.isNull("adress") ? null : data.getString("adress");
