@@ -102,8 +102,10 @@ public class Login extends AppCompatActivity {
                                     public void onUserReceived() {
                                         String account_type = user.getAccountType();
                                         if ("patient".equals(account_type)) {
+                                            user.getPatientInformation(user.getId(),pateint);
                                             startActivity(new Intent(Login.this, Home.class));
                                         } else {
+                                            user.getMedecinInformation(user.getId(),medecin);
                                             startActivity(new Intent(Login.this, MHome.class));
                                         }
                                         finish();
@@ -151,4 +153,70 @@ public class Login extends AppCompatActivity {
         // Add the request to the RequestQueue
         requestQueue.add(request);
     }
+    User.UserCallback pateint = new User.UserCallback() {
+        @Override
+        public void onUserReceived() {
+        }
+
+        @Override
+        public void onPatientNotFound() {
+        }
+
+        @Override
+        public void onPatientError(String errorMessage) {
+        }
+
+        @Override
+        public void onPatientReceived(int patientId, String mobile, String birthday, String address, String weight) {
+         user.setIdp(patientId);
+         user.setPhone(mobile);
+         user.setBirthday(birthday);
+         user.setAddress(address);
+         user.setWeight(weight);
+        }
+
+        @Override
+        public void onMedecinReceived(int medecinId, String reviews, String fax, String siteweb, String location) {
+
+        }
+
+        @Override
+        public void onMedecinError(String errorMessage) {
+
+        }
+    };
+    User.UserCallback medecin = new User.UserCallback() {
+        @Override
+        public void onUserReceived() {
+        }
+
+        @Override
+        public void onPatientNotFound() {
+
+        }
+
+        @Override
+        public void onPatientError(String errorMessage) {
+
+        }
+
+        @Override
+        public void onPatientReceived(int patientId, String mobile, String birthday, String address, String weight) {
+
+        }
+
+        @Override
+        public void onMedecinReceived(int medecinId, String reviews, String fax, String siteweb, String location) {
+        user.setIdm(medecinId);
+        user.setReviews(reviews);
+        user.setFax(fax);
+        user.setSiteweb(siteweb);
+        user.setLoscation(location);
+        }
+
+        @Override
+        public void onMedecinError(String errorMessage) {
+
+        }
+    };
 }
