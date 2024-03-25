@@ -2,30 +2,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/profile_bg"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Medecin.MProfileFragment">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    >
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
+</LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="528dp"
+        android:layout_marginBottom="-50dp"
+        android:layout_marginTop="300dp"
         android:gravity="center"
         android:orientation="vertical">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="100dp" />
-
         <ScrollView
-            android:layout_width="304dp"
+            android:layout_width="match_parent"
             android:layout_height="432dp"
-            android:background="@drawable/textround"
             android:contentDescription="@string/app_name">
 
             <LinearLayout
                 android:id="@+id/profileinfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="-50dp"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:padding="16dp">
@@ -273,16 +279,18 @@
                         android:textSize="18sp"
                         android:textStyle="bold" />
                 </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+
+                    android:id="@+id/buttonModifyProfile"
+                    android:layout_width="169dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/ronded_corner1ok"
+                    android:text="Modifier le profil" />
             </LinearLayout>
+
         </ScrollView>
 
-        <androidx.appcompat.widget.AppCompatButton
-
-            android:id="@+id/buttonModifyProfile"
-            android:layout_width="169dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/ronded_corner1ok"
-            android:text="Modifier le profil" />
     </LinearLayout>
 </FrameLayout>

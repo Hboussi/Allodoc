@@ -3,7 +3,11 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="tomate">#F20505</color>
-    <color name="r1">#FF4046</color>
+    <color name="r1">#5BCAE2</color>
+    <color name="r2">#28ABCA</color>
+    <color name="r3">#0698BE</color>
+    <color name="r4">#0083A6</color>
+    <color name="r5">#00759A</color>
 
     <color name="v">#2acfc1</color>
     <color name="b1">#2980F2</color>

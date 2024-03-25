@@ -3,10 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     tools:ignore="ExtraText">
     <corners android:radius="16dp" /> <!-- Adjust the radius as needed -->
-    <solid android:color="@color/r1" /> <!-- Background color -->
+    <solid android:color="@color/r3" /> <!-- Background color -->
     <stroke
         android:width="2dp"
-        android:color="@color/r1"
+        android:color="@color/r4"
         />
     <!-- Border color -->
 </shape>

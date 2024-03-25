@@ -18,6 +18,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Date;
 
 public class User {
     private static User instance;
@@ -40,6 +41,64 @@ public class User {
     private int idm;
     private String fax;
     private String siteweb;
+    // folder information
+    private int idfm;
+    private String namefm;
+    private String description;
+    private int idp_folder;
+    private String namep_folder;
+    private String exeperation;
+
+    public int getIdfm() {
+        return idfm;
+    }
+
+    public void setIdfm(int idfm) {
+        this.idfm = idfm;
+    }
+
+    public String getNamefm() {
+        return namefm;
+    }
+
+    public void setNamefm(String namefm) {
+        this.namefm = namefm;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getIdp_folder() {
+        return idp_folder;
+    }
+
+    public void setIdp_folder(int idp_folder) {
+        this.idp_folder = idp_folder;
+    }
+
+    public String getNamep_folder() {
+        return namep_folder;
+    }
+
+    public void setNamep_folder(String namep_folder) {
+        this.namep_folder = namep_folder;
+    }
+
+    public String getExeperation() {
+        return exeperation;
+    }
+
+    public void setExeperation(String exeperation) {
+        this.exeperation = exeperation;
+    }
+
+
+
 
     public int getIdm() {
         return idm;
@@ -306,6 +365,45 @@ public class User {
         // Add the request to the RequestQueue
         requestQueue.add(jsonObjectRequest);
     }
+    public void putShareFolder(String folderName, int folderId, int patientId, int medecinId, String description, String expiration, final UserCallback callback) {
+        String url = "https://allodoc.uxuitrends.com/api/sharedfolder";
+
+        JSONObject userInfoJson = new JSONObject();
+        try {
+            userInfoJson.put("folder_name", folderName);
+            userInfoJson.put("folder_id", folderId);
+            userInfoJson.put("patient_id", patientId);
+            userInfoJson.put("medecin_id", medecinId);
+            userInfoJson.put("description", description);
+            userInfoJson.put("expiration", expiration);
+        } catch (JSONException e) {
+            // Handle JSON exception gracefully
+            Log.e("JSON Exception", "Error creating JSON object", e);
+            callback.onPatientError("Error creating JSON object");
+            return; // Exit method if JSON creation fails
+        }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, userInfoJson,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        callback.onUserReceived();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Handle network error gracefully
+                        callback.onPatientError("An internal server error occurred. Please try again later.");
+                        error.printStackTrace();
+                    }
+                }
+        );
+
+        // Add the request to the RequestQueue
+        requestQueue.add(jsonObjectRequest);
+    }
+
 
     public interface UserCallback {
         void onUserReceived();
@@ -318,4 +416,5 @@ public class User {
 
         void onMedecinError(String errorMessage);
     }
+
 }

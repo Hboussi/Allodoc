@@ -64,6 +64,9 @@ dependencies {
     // COMMONS
     implementation ("commons-io:commons-io:2.11.0")
 
+    implementation("com.google.zxing:core:3.4.1")
+    implementation("com.journeyapps:zxing-android-embedded:4.2.0")
+
 
     // ZXING
     implementation ("com.google.zxing:core:3.3.3")
